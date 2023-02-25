@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+  </head>
+  <body>
+    <label>Test data length:</label>
+    <input type="text" id="test_length_input" value="1000">
+    <br>
+    <button id="run_ws_test_button" onclick="run_ws_test()">Run WebSocket Test</button>
+    <button id="run_ws_test_button" onclick="run_webrtc_test()">Run WebRTC Test</button>
+    <br>
+    <p>WebSocket test took: <span id="ws_test_result">0</span> milliseconds</p>
+    <p>WebRTC test took: <span id="webrtc_test_result">0</span> milliseconds</p>
+
+    <br>
+    <p>Example data:</p>
+    <pre>
+    [
+        {
+            "id": 0,
+            "x": 1337,
+            "y": 42
+        }
+    ]
+    </pre>
+    <br>
+
+    <p>Number of connected clients: <span id="connected_clients_num">0</span></p>
+    <p>Connected clients:
+        <div id="connected_clients"></div>
+    </p>
+	<script src="client.js"></script>
+  </body>
+</html>
