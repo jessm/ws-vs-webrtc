@@ -133,7 +133,7 @@ func main() {
 	certmagic.DefaultACME.Email = "e.jessmuir@gmail.com"
 
 	// use the staging endpoint while we're developing
-	certmagic.DefaultACME.CA = certmagic.LetsEncryptStagingCA
+	// certmagic.DefaultACME.CA = certmagic.LetsEncryptStagingCA
 
 	err := certmagic.HTTPS([]string{"test.jessmuir.com"}, http.DefaultServeMux)
 	if err != nil {
