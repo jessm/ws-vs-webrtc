@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/caddyserver/certmagic"
 	"github.com/gorilla/websocket"
 )
 
@@ -123,5 +124,29 @@ func main() {
 
 	fmt.Println("WebSocket and WebRTC server now serving")
 	// http.ListenAndServe(":8080", nil)
-	http.ListenAndServeTLS(":8080", "cert.pem", "key.pem", nil)
+	// http.ListenAndServeTLS(":8080", "cert.pem", "key.pem", nil)
+	ln, err := certmagic.Listen([]string{"test.jessmuir.com"})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// read and agree to your CA's legal documents
+	certmagic.DefaultACME.Agreed = true
+
+	// provide an email address
+	certmagic.DefaultACME.Email = "e.jessmuir@gmail.com"
+
+	// use the staging endpoint while we're developing
+	certmagic.DefaultACME.CA = certmagic.LetsEncryptStagingCA
+
+	srv := http.Server{
+		ReadTimeout:       1 * time.Second,
+		WriteTimeout:      2 * time.Second,
+		IdleTimeout:       10 * time.Second,
+		ReadHeaderTimeout: 2 * time.Second,
+		Handler:           http.DefaultServeMux,
+		Addr:              "8080",
+	}
+
+	srv.Serve(ln)
 }
